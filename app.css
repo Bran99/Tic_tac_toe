@@ -1,0 +1,70 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+div {
+  margin: 5em;
+  font-family: 'Titillium Web', sans-serif;
+  align-self: flex-start;
+  }
+
+table {
+  width: 30em;
+  height: 30em;
+}
+
+td {
+  transition: all 0.5s ease;
+  width: 30%;
+  height: 30%;
+  text-align: center;
+  font-size: 2em;
+  font-family: 'Nunito', sans-serif;
+}
+
+td:hover {
+  background-color: blue;
+}
+
+td:active {
+  background-color: red;
+}
+
+.col0 {
+  border-right: 5px solid black;
+  border-left: 5px solid white;
+}
+
+.col1 {
+  border-left: 5px solid black;
+  border-right: 5px solid black;
+}
+
+.col2 {
+  border-left: 5px solid black;
+  border-right: 5px solid white;
+}
+
+.row0 > *{
+  border-top: 5px solid white;
+  border-bottom: 5px solid black;
+}
+
+.row1 > *{
+  border-top: 5px solid black;
+  border-bottom: 5px solid black;
+}
+
+.row2 > *{
+  border-top: 5px solid black;
+  border-bottom: 5px solid white;
+}
+
+button {
+  width: 10em;
+  height: 2em;
+}
