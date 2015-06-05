@@ -27,11 +27,11 @@ td {
 }
 
 td:hover {
-  background-color: blue;
+  background-color: grey;
 }
 
 td:active {
-  background-color: red;
+  background-color: darkgrey;
 }
 
 .col0 {
@@ -64,7 +64,16 @@ td:active {
   border-bottom: 5px solid white;
 }
 
-button {
+h1 {
   width: 10em;
   height: 2em;
+}
+
+h1:hover {
+  color: darkgrey;
+  cursor: pointer;
+}
+
+h1:active {
+  color: grey;
 }
