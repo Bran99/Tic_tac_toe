@@ -30,3 +30,5 @@ During the building of my game, I implemented two extra features:
 If I were to improve upon this, I would try to make an unbeatable AI.  I found out that there is a list of priorities needed to produce an unbeatable AI, but I had much trouble conceptualizing how to implement them (specifically how to create and/or block a fork).
 
 I would also implement the ability to change a player's name once it has been entered, and a way to reset the scores without having to reload the page.  This would be good, for example, for friends playing best out of 5.
+
+Lastly, I would like to make it so that two friends can play across the internet.
