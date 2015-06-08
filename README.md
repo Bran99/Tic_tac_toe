@@ -13,7 +13,7 @@ I started with creating the HTML skeleton and CSS styling.  This allowed me to
 - know what I was working with.
 This was the first time I used the `<table>` tag, which ended up working nicely–it was very easy to split up everything into rows and columns.
 
-For my javaScript, I knew I needed several things:
+For my javaScript/jQuery, I knew I needed several things:
 - an array to store the letters placed on the board
 - a function to draw the table when the page is loaded
 - a function to alternate the letter being placed ('X' and 'O')
