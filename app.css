@@ -1,9 +1,16 @@
-body {
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+#game-container {
   display: flex;
   justify-content: center;
   align-content: space-around;
   align-items: center;
   flex-wrap: wrap;
+  margin-top: 1em;
 }
 
 div {
@@ -50,7 +57,6 @@ td:active {
 }
 
 .row0 > *{
-  border-top: 5px solid white;
   border-bottom: 5px solid black;
 }
 
@@ -61,19 +67,61 @@ td:active {
 
 .row2 > *{
   border-top: 5px solid black;
-  border-bottom: 5px solid white;
 }
 
 h1 {
-  width: 10em;
+  width: 3em;
   height: 2em;
+  text-align: center;
+  line-height: 2;
+  transition: all .25s ease;
+  background-color: white;
+  border-radius: 5%;
 }
 
 h1:hover {
-  color: darkgrey;
+  color: white;
   cursor: pointer;
+  background-color: grey;
 }
 
 h1:active {
-  color: grey;
+  color: white;
+  background-color: black;
+}
+
+#play-button-container {
+  display: flex;
+  justify-content: center;
+  height: 1em;
+}
+
+#name-enterer {
+  display: flex;
+  justify-content: center;
+}
+
+#name-enterer > input {
+  width: 13.7em;
+  height: 2em;
+}
+
+#modal {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(50, 50, 50, 0.8);
+  position: absolute;
+  margin: 0 auto;
+  visibility: visible;
+}
+
+#winner-text {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  font-size: 2em;
+}
+
+#name-enterer > input:focus {
+  outline: none;
 }

@@ -1,6 +1,5 @@
 var game = {
-  board: [[,,,],[,,,],[,,,]],
-  boardElements: [],
+  board: [['','',''],['','',''],['','','']],
   player: [],
   alternator: 0,
   playerOneScore: 0,
@@ -8,17 +7,24 @@ var game = {
   playerOneName: 'Player 1',
   playerTwoName: 'Player 2',
   currentPlayer: '',
-  winner: '1',
+  winner: ' ',
 
-  // enterNames: function () {
-  //   //This function is a work in progress
-  //   $('input').attr('placeholder', 'Please Enter Your Name')
-  //             .on('keydown', function (e) {
-  //               if(e.keyCode === 13) {
-  //                 $('#player-one').text($('input').text());
-  //               }
-  //             })
-  // },
+  enterNames: function () {
+    var self = this;
+    var nameCounter = 0;
+    $('input').attr('placeholder', "Please Enter Player One's Name")
+              .on('keydown', function (e) {
+                if(e.keyCode === 13 && nameCounter === 0) {
+                  self.playerOneName = $('input').val();
+                  $('input').val('')
+                            .attr('placeholder', "Please Enter Player Two's Name");
+                  nameCounter++;
+                } else if(e.keyCode === 13 && nameCounter === 1) {
+                  self.playerTwoName = $('input').val();
+                  $('input').remove();
+                }
+              });
+  },
 
   makeTable: function () {
     //A nested loop to create the board with a row and col class corresponding to their respective rows and classes
@@ -30,12 +36,11 @@ var game = {
         var $td = $('<td>')
                            .addClass('col' + j)
                            .text(this.board[i][j])
-                           .attr('id', 'spot' + i + ''  + j)
+                           .attr('id', 'spot' + i + '' + j)
                            .on('click', function () {
                              self.placeLetter($(this));
                            });
         $tr.append($td);
-        this.boardElements.push($td);
       }
       $('#player-one').text(this.playerOneName + ': ' + this.playerOneScore);
       $('#player-two').text(this.playerTwoName + ': ' + this.playerTwoScore);
@@ -52,9 +57,19 @@ var game = {
     }
     if(this.winner === 'X') {
       this.playerOneScore += 1;
+      $('#modal').css('visibility', 'visible');
+      $('#winner-text').text(this.playerOneName + ' wins!');
+
     } else if(this.winner === 'O') {
       this.playerTwoScore += 1;
+      $('#modal').css('visibility', 'visible');
+      $('#winner-text').text(this.playerTwoName + ' wins!');
+
+    } else if(this.alternator === 9){
+      $('#modal').css('visibility', 'visible');
+      $('#winner-text').text('TIE!');
     }
+
     $('#player-one').text(this.playerOneName + ': ' + this.playerOneScore);
     $('#player-two').text(this.playerTwoName + ': ' + this.playerTwoScore);
   },
@@ -74,44 +89,47 @@ var game = {
     var row = positionArray[0];
     var column = positionArray[1];
 
-    //This if statement will stop a spot from being overwritten
+      //This if statement will stop a spot from being overwritten
     if(!this.board[row][column]) {
       this.alternatePlayer();
-      this.board[row][column] = this.currentPlayer;
-      this.getWinner();
-      this.render();
+      //If there is no winner, place a letter, check for a winner, and render the board
+      if(!this.winner) {
+        this.board[row][column] = this.currentPlayer;
+        this.getWinner();
+        this.render();
+      }
     }
   },
 
   getWinner: function (){
     //Determines the winner of the game
-    //Column checker not fully functional
-    var that = this;
+    var self = this;
 
     function rowWin(){
-      for(var row = 0; row < that.board.length; row++){
-        if(that.board[row][0] === that.board[row][1] && that.board[row][1] === that.board[row][2] && that.board[row][0] && that.alternator >= 5){
-          that.winner = that.board[row][0];
+      for(var row = 0; row < self.board.length; row++){
+        if(self.board[row][0] === self.board[row][1] && self.board[row][1] === self.board[row][2] && self.board[row][0] !== '' && self.alternator >= 5){
+          self.winner = self.board[row][0];
           return true;
         };
       };
     };
 
     function colWin(){
-      for(var col = 0; col < that.board.length; col++){
-        if(that.board[0][col] === that.board[1][col] && that.board[1][col] === that.board[2][col] && that.board[col][0] && that.alternator >= 5){
-          that.winner = that.board[0][col];
+      for(var col = 0; col < self.board.length; col++){
+        if(self.board[0][col] === self.board[1][col] && self.board[1][col] === self.board[2][col] && self.board[0][col] !== '' && self.alternator >= 5){
+          self.winner = self.board[0][col];
+          console.log(self.winner);
           return true;
         };
       };
     };
 
     function diagWin(){
-      if(that.board[0][0] === that.board[1][1] && that.board[1][1] ===that.board[2][2] && that.board[0][0] && that.alternator >= 5){
-        that.winner = that.board[1][1];
+      if(self.board[0][0] === self.board[1][1] && self.board[1][1] ===self.board[2][2] && self.board[0][0] !== '' && self.alternator >= 5){
+        self.winner = self.board[1][1];
         return true;
-      } else if(that.board[0][2] === that.board[1][1] && that.board[1][1] === that.board[2][0] && that.board[2][0] && that.alternator >= 5){
-        that.winner = that.board[1][1];
+      } else if(self.board[0][2] === self.board[1][1] && self.board[1][1] === self.board[2][0] && self.board[2][0] !== '' && self.alternator >= 5){
+        self.winner = self.board[1][1];
         return true;
       };
     };
@@ -130,13 +148,16 @@ var game = {
           this.board[i][j] = '';
         };
       };
-      this.alternator = 0;
       this.render();
+      this.alternator = 0;
     }
   }
 };
 
-game.makeTable();
 $('#start-game').on('click', function () {
   game.clearBoard();
+  $('#modal').css('visibility', 'hidden');
 });
+
+game.makeTable();
+game.enterNames();
