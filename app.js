@@ -10,8 +10,10 @@ var game = {
   winner: ' ',
 
   enterNames: function () {
+    //Allows player(s) to enter their own name for the game
     var self = this;
-    var nameCounter = 0;
+    var nameCounter = 0;  //Allows me to store names properly
+    
     $('input').attr('placeholder', "Please Enter Player One's Name")
               .on('keydown', function (e) {
                 if(e.keyCode === 13 && nameCounter === 0) {
